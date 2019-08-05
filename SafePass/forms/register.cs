@@ -49,5 +49,52 @@ namespace SafePass
             control_form.ShowDialog();
             this.Close();
         }
+
+        private void username_txtbox_Click(object sender, EventArgs e)
+        {
+            if (username_txtbox.Text == "Username")
+            {
+                username_txtbox.Text = "";
+                username_txtbox.ForeColor = Color.Black;
+            }
+
+            if ((password_txtbox.Text == "") || (repeat_password_txtbox.Text == ""))
+            {
+                password_txtbox.Text = "Password";
+                password_txtbox.ForeColor = Color.DarkGray;
+                repeat_password_txtbox.Text = "Repeat password";
+                repeat_password_txtbox.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private void password_txtbox_Click(object sender, EventArgs e)
+        {
+            if (password_txtbox.Text == "Password")
+            {
+                password_txtbox.Text = "";
+                password_txtbox.ForeColor = Color.Black;
+            }
+
+            if (username_txtbox.Text == "")
+            {
+                username_txtbox.Text = "Username";
+                username_txtbox.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private void repeat_password_txtbox_Click(object sender, EventArgs e)
+        {
+            if (repeat_password_txtbox.Text == "Repeat password")
+            {
+                repeat_password_txtbox.Text = "";
+                repeat_password_txtbox.ForeColor = Color.Black;
+            }
+
+            if (username_txtbox.Text == "")
+            {
+                username_txtbox.Text = "Username";
+                username_txtbox.ForeColor = Color.DarkGray;
+            }
+        }
     }
 }

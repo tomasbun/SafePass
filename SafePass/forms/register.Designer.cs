@@ -40,7 +40,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.repeat_password_txt = new System.Windows.Forms.TextBox();
+            this.repeat_password_txtbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -100,6 +100,7 @@
             this.username_txtbox.Size = new System.Drawing.Size(221, 30);
             this.username_txtbox.TabIndex = 1;
             this.username_txtbox.Text = "Username";
+            this.username_txtbox.Click += new System.EventHandler(this.username_txtbox_Click);
             // 
             // password_txtbox
             // 
@@ -113,6 +114,7 @@
             this.password_txtbox.Size = new System.Drawing.Size(221, 30);
             this.password_txtbox.TabIndex = 2;
             this.password_txtbox.Text = "Password";
+            this.password_txtbox.Click += new System.EventHandler(this.password_txtbox_Click);
             // 
             // panel2
             // 
@@ -170,7 +172,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.repeat_password_txt);
+            this.panel1.Controls.Add(this.repeat_password_txtbox);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -184,18 +186,19 @@
             this.panel1.Size = new System.Drawing.Size(262, 125);
             this.panel1.TabIndex = 11;
             // 
-            // repeat_password_txt
+            // repeat_password_txtbox
             // 
-            this.repeat_password_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.repeat_password_txt.Font = new System.Drawing.Font("Agency FB", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.repeat_password_txt.ForeColor = System.Drawing.Color.DarkGray;
-            this.repeat_password_txt.Location = new System.Drawing.Point(40, 89);
-            this.repeat_password_txt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.repeat_password_txt.Multiline = true;
-            this.repeat_password_txt.Name = "repeat_password_txt";
-            this.repeat_password_txt.Size = new System.Drawing.Size(221, 30);
-            this.repeat_password_txt.TabIndex = 13;
-            this.repeat_password_txt.Text = "Repeat password";
+            this.repeat_password_txtbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.repeat_password_txtbox.Font = new System.Drawing.Font("Agency FB", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.repeat_password_txtbox.ForeColor = System.Drawing.Color.DarkGray;
+            this.repeat_password_txtbox.Location = new System.Drawing.Point(40, 89);
+            this.repeat_password_txtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.repeat_password_txtbox.Multiline = true;
+            this.repeat_password_txtbox.Name = "repeat_password_txtbox";
+            this.repeat_password_txtbox.Size = new System.Drawing.Size(221, 30);
+            this.repeat_password_txtbox.TabIndex = 13;
+            this.repeat_password_txtbox.Text = "Repeat password";
+            this.repeat_password_txtbox.Click += new System.EventHandler(this.repeat_password_txtbox_Click);
             // 
             // register
             // 
@@ -232,6 +235,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox repeat_password_txt;
+        private System.Windows.Forms.TextBox repeat_password_txtbox;
     }
 }
