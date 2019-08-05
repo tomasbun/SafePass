@@ -14,6 +14,7 @@ namespace SafePass
     {
         public register()
         {
+            // do you see this?
             InitializeComponent();
 
         }
