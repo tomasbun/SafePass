@@ -44,10 +44,23 @@ namespace SafePass
 
         private void register_btn_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Control control_form = new Control();
-            control_form.ShowDialog();
-            this.Close();
+            if (username_txtbox.Text.Length < 5 ) 
+            {
+                MessageBox.Show("Username must be at least 5 characters long");
+            }
+            else if (password_txtbox.Text != repeat_password_txtbox.Text)
+            {
+                MessageBox.Show("Password do not match!");
+            }
+            else
+            {
+                this.Hide();
+                Control control_form = new Control();
+                control_form.ShowDialog();
+                this.Close();
+
+            }
+            
         }
 
         private void username_txtbox_Click(object sender, EventArgs e)
