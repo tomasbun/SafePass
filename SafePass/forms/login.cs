@@ -13,6 +13,7 @@ namespace SafePass
 {
     public partial class login : Form
     {
+        // testing
         string directory_path = @"c:\safepass";
         int number_of_files = 0;
 
