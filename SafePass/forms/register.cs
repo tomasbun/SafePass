@@ -12,17 +12,14 @@ namespace SafePass
 {
     public partial class register : Form
     {
+        string file_path = @"c:\safepass\userdata.txt";
+
+
         public register()
         {
-            // do you see this?
-            // what about this?
-            // and this?
-            // its me again
-            InitializeComponent();
+           InitializeComponent();
 
         }
-
-
 
         private void login_lbl_MouseLeave(object sender, EventArgs e)
         {
@@ -48,12 +45,22 @@ namespace SafePass
             {
                 MessageBox.Show("Username must be at least 5 characters long");
             }
+            else if (username_txtbox.Text.Contains(" "))
+            {
+                MessageBox.Show("No spaces allowed in username");
+            }
             else if (password_txtbox.Text != repeat_password_txtbox.Text)
             {
                 MessageBox.Show("Password do not match!");
             }
+            else if (password_txtbox.Text.Contains(" "))
+            {
+                MessageBox.Show("No spaces allowed in pasword");
+            }
             else
             {
+                System.IO.File.WriteAllText(file_path, username_txtbox.Text.Trim() + " " +password_txtbox.Text.Trim());
+                MessageBox.Show("registration successful!");
                 this.Hide();
                 Control control_form = new Control();
                 control_form.ShowDialog();

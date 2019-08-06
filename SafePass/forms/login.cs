@@ -15,6 +15,7 @@ namespace SafePass
     {
         // testing
         string directory_path = @"c:\safepass";
+        string file_path = @"c:\safepass\userdata.txt";
         int number_of_files = 0;
 
         public login()
@@ -24,15 +25,15 @@ namespace SafePass
                 number_of_files = Directory.GetFiles(directory_path).Length;
                        
 
-            if ( (!Directory.Exists(directory_path)) || (number_of_files == 0) )
+            if ( (!Directory.Exists(directory_path)) || (number_of_files == 0) || (!File.Exists(file_path)) )
             {
                 Directory.CreateDirectory(directory_path);
-                MessageBox.Show("No profiles detected please register first!");
+                File.Create(file_path);
+                MessageBox.Show("No profiles detected please register first! " + number_of_files );
                 this.Hide();
                 register register_form = new register();
                 register_form.ShowDialog();
                 this.Close();
-
             }
             
         }
@@ -44,17 +45,12 @@ namespace SafePass
                 username_txtbox.Text = "";
                 username_txtbox.ForeColor = Color.Black;
             }    
-
-
+            
             if (password_txtbox.Text == "")
             {
                 password_txtbox.Text = "Password";
                 password_txtbox.ForeColor = Color.DarkGray;
             }
-                
-
-
-
         }
 
         private void password_txtbox_Click(object sender, EventArgs e)
@@ -69,9 +65,7 @@ namespace SafePass
             {
                 username_txtbox.Text = "Username";
                 username_txtbox.ForeColor = Color.DarkGray;
-            }    
-            
-                
+            }                   
         }
 
         private void register_lbl_MouseMove(object sender, MouseEventArgs e)

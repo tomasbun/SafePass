@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(register));
             this.safepass_lbl = new System.Windows.Forms.Label();
             this.login_lbl = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.repeat_password_txtbox = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -100,6 +102,7 @@
             this.username_txtbox.Size = new System.Drawing.Size(221, 30);
             this.username_txtbox.TabIndex = 1;
             this.username_txtbox.Text = "Username";
+            this.toolTip1.SetToolTip(this.username_txtbox, "Must be at least 5 characters long");
             this.username_txtbox.Click += new System.EventHandler(this.username_txtbox_Click);
             // 
             // password_txtbox
@@ -114,6 +117,7 @@
             this.password_txtbox.Size = new System.Drawing.Size(221, 30);
             this.password_txtbox.TabIndex = 2;
             this.password_txtbox.Text = "Password";
+            this.toolTip1.SetToolTip(this.password_txtbox, "Must contain at least 6 characters and a number");
             this.password_txtbox.Click += new System.EventHandler(this.password_txtbox_Click);
             // 
             // panel2
@@ -236,5 +240,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox repeat_password_txtbox;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
