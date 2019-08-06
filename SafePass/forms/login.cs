@@ -17,14 +17,14 @@ namespace SafePass
         string directory_path = @"c:\safepass";
         string file_path = @"c:\safepass\userdata.txt";
         int number_of_files = 0;
+        List<User> all_users = new List<User>();
 
         public login()
         {
             InitializeComponent();
             if (Directory.Exists(directory_path))
                 number_of_files = Directory.GetFiles(directory_path).Length;
-                       
-
+            
             if ( (!Directory.Exists(directory_path)) || (number_of_files == 0) || (!File.Exists(file_path)) )
             {
                 Directory.CreateDirectory(directory_path);
@@ -35,7 +35,9 @@ namespace SafePass
                 register_form.ShowDialog();
                 this.Close();
             }
-            
+            else
+                read_users();
+
         }
 
         private void username_txtbox_Click(object sender, EventArgs e)
@@ -80,10 +82,17 @@ namespace SafePass
 
         private void login_btn_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Control control_form = new Control();
-            control_form.ShowDialog();
-            this.Close();
+            foreach (User u in all_users)
+            {
+                if ( (u.GetUsername() == username_txtbox.Text) && (u.GetPassword() == password_txtbox.Text) )
+                {
+                    this.Hide();
+                    Control control_form = new Control();
+                    control_form.ShowDialog();
+                    this.Close();
+                }
+            }
+            MessageBox.Show("Username or password incorect!");
         }
 
         private void register_lbl_Click(object sender, EventArgs e)
@@ -92,6 +101,17 @@ namespace SafePass
             register register_form = new register();
             register_form.ShowDialog();
             this.Close();
+        }
+        
+        private void read_users()
+        {
+            String[] lines = File.ReadAllLines(file_path);
+            foreach (string line in lines)
+            {
+                string[] details = line.Split(' ');
+                User new_user = new User(details[0], details[1]);
+                all_users.Add(new_user);
+            }
         }
     }
 }
