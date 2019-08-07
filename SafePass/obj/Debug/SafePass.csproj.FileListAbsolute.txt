@@ -17,7 +17,6 @@ C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.csprojAssemblyR
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.Control.resources
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.login.resources
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.Properties.Resources.resources
-C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.register.resources
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.csproj.GenerateResource.cache
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.csproj.CoreCompileInputs.cache
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.exe
