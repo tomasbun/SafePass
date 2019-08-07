@@ -30,8 +30,10 @@ namespace SafePass
             {
 
                 Directory.CreateDirectory(directory_path);
-                File.Create(file_path);
+                var myfile = File.Create(file_path);
+                myfile.Close();
                 MessageBox.Show("No profiles detected please register first! ");
+                repeat_password_txtbox.TabStop = true;
                 panel1.Height = 125;
                 button1.Text = "Register";
                 button2.Text = "Login";
@@ -127,11 +129,12 @@ namespace SafePass
                 else
                 {
                     File.WriteAllText(file_path, username_txtbox.Text.Trim() + " " + password_txtbox.Text.Trim());
+                    
                     MessageBox.Show("Registration successful!");
                     this.Hide();
                     Control control_form = new Control(username_txtbox.Text);
                     control_form.ShowDialog();
-                    //this.Close();
+                    this.Close();
                 }
             }
             else
