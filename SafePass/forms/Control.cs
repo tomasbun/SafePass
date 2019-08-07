@@ -12,9 +12,10 @@ namespace SafePass
 {
     public partial class Control : Form
     {
-        public Control()
+        public Control(string username)
         {
             InitializeComponent();
+            current_user_lbl.Text += username;
         }
 
         private void exit_btn_Click(object sender, EventArgs e)

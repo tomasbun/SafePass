@@ -87,7 +87,7 @@ namespace SafePass
                 if ( (u.GetUsername() == username_txtbox.Text) && (u.GetPassword() == password_txtbox.Text) )
                 {
                     this.Hide();
-                    Control control_form = new Control();
+                    Control control_form = new Control(username_txtbox.Text);
                     control_form.ShowDialog();
                     this.Close();
                 }

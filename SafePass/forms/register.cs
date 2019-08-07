@@ -62,7 +62,7 @@ namespace SafePass
                 System.IO.File.WriteAllText(file_path, username_txtbox.Text.Trim() + " " +password_txtbox.Text.Trim());
                 MessageBox.Show("registration successful!");
                 this.Hide();
-                Control control_form = new Control();
+                Control control_form = new Control(username_txtbox.Text);
                 control_form.ShowDialog();
                 this.Close();
 

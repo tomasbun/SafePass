@@ -51,7 +51,7 @@ namespace SafePass
             return Name;
         }
 
-        public string GetType()
+        public string Get_Type()
         {
             return Type;
         }
