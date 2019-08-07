@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace SafePass
 {
@@ -16,6 +17,7 @@ namespace SafePass
         // testing
         string directory_path = @"c:\safepass";
         string file_path = @"c:\safepass\userdata.txt";
+        string key = "robertas";
         int number_of_files = 0;
         List<User> all_users = new List<User>();
 
@@ -32,12 +34,16 @@ namespace SafePass
                 Directory.CreateDirectory(directory_path);
                 var myfile = File.Create(file_path);
                 myfile.Close();
+                File.WriteAllText(file_path, "admin 1234");
+                Encryptfile(file_path, key);
+
                 MessageBox.Show("No profiles detected please register first! ");
                 repeat_password_txtbox.TabStop = true;
                 panel1.Height = 125;
                 button1.Text = "Register";
                 button2.Text = "Login";
-
+                button2.Enabled = false;
+                
             }
             else
             {
@@ -47,7 +53,7 @@ namespace SafePass
 
         }
 
-       
+       //------------------------- events ---------------------------------------------------
 
         private void username_txtbox_Enter(object sender, EventArgs e)
         {
@@ -128,8 +134,9 @@ namespace SafePass
                 }
                 else
                 {
+                    Decryptfile(file_path, key);
                     File.WriteAllText(file_path, username_txtbox.Text.Trim() + " " + password_txtbox.Text.Trim());
-                    
+                    Encryptfile(file_path, key);
                     MessageBox.Show("Registration successful!");
                     this.Hide();
                     Control control_form = new Control(username_txtbox.Text);
@@ -183,8 +190,11 @@ namespace SafePass
             }
         }
 
+        //------------------------- methods -------------------------------------------------
+
         private void read_users()
         {
+            Decryptfile(file_path, key);
             String[] lines = File.ReadAllLines(file_path);
             foreach (string line in lines)
             {
@@ -192,8 +202,64 @@ namespace SafePass
                 User new_user = new User(details[0], details[1]);
                 all_users.Add(new_user);
             }
+            Encryptfile(file_path, key);
         }
 
-        
+        static void Encryptfile(string filepath, string key)
+        {
+            byte[] plainContent = File.ReadAllBytes(filepath);
+            using (var DES = new DESCryptoServiceProvider())
+            {
+                DES.IV = Encoding.UTF8.GetBytes(key);
+                DES.Key = Encoding.UTF8.GetBytes(key);
+                DES.Mode = CipherMode.CBC;
+                DES.Padding = PaddingMode.PKCS7;
+
+
+                using (var memStream = new MemoryStream())
+                {
+                     CryptoStream cryptoStream = new CryptoStream(memStream, DES.CreateEncryptor(),
+                        CryptoStreamMode.Write);
+
+                    cryptoStream.Write(plainContent, 0, plainContent.Length);
+                    cryptoStream.FlushFinalBlock();
+                    File.WriteAllBytes(filepath, memStream.ToArray());
+                    MessageBox.Show("Encryption succesfull");
+                }
+
+            }
+
+        }
+
+        static void Decryptfile(string filepath, string key)
+        {
+            byte[] encrypted = File.ReadAllBytes(filepath);
+            using (var DES = new DESCryptoServiceProvider())
+            {
+                DES.IV = Encoding.UTF8.GetBytes(key);
+                DES.Key = Encoding.UTF8.GetBytes(key);
+                DES.Mode = CipherMode.CBC;
+                DES.Padding = PaddingMode.PKCS7;
+
+
+                using (var memStream = new MemoryStream())
+                {
+                    CryptoStream cryptoStream = new CryptoStream(memStream, DES.CreateDecryptor(),
+                       CryptoStreamMode.Write);
+
+                    cryptoStream.Write(encrypted, 0, encrypted.Length);
+                    cryptoStream.FlushFinalBlock();
+                    File.WriteAllBytes(filepath, memStream.ToArray());
+                    MessageBox.Show("Decryption succesfull");
+                }
+
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Decryptfile(file_path, key);
+        }
     }
 }
