@@ -55,6 +55,21 @@ namespace SafePass
             }
         }
 
+        private void username_txtbox_Enter(object sender, EventArgs e)
+        {
+            if (username_txtbox.Text == "Username")
+            {
+                username_txtbox.Text = "";
+                username_txtbox.ForeColor = Color.Black;
+            }
+
+            if (password_txtbox.Text == "")
+            {
+                password_txtbox.Text = "Password";
+                password_txtbox.ForeColor = Color.DarkGray;
+            }
+        }
+
         private void password_txtbox_Click(object sender, EventArgs e)
         {
             if (password_txtbox.Text == "Password")
@@ -68,6 +83,21 @@ namespace SafePass
                 username_txtbox.Text = "Username";
                 username_txtbox.ForeColor = Color.DarkGray;
             }                   
+        }
+
+        private void password_txtbox_Enter(object sender, EventArgs e)
+        {
+            if (password_txtbox.Text == "Password")
+            {
+                password_txtbox.Text = "";
+                password_txtbox.ForeColor = Color.Black;
+            }
+
+            if (username_txtbox.Text == "")
+            {
+                username_txtbox.Text = "Username";
+                username_txtbox.ForeColor = Color.DarkGray;
+            }
         }
 
         private void register_lbl_MouseMove(object sender, MouseEventArgs e)
@@ -113,5 +143,7 @@ namespace SafePass
                 all_users.Add(new_user);
             }
         }
+
+        
     }
 }

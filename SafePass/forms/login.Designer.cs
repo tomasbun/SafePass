@@ -59,6 +59,7 @@
             this.username_txtbox.Text = "Username";
             this.toolTip1.SetToolTip(this.username_txtbox, "Click register if You dont have username yet");
             this.username_txtbox.Click += new System.EventHandler(this.username_txtbox_Click);
+            this.username_txtbox.Enter += new System.EventHandler(this.username_txtbox_Enter);
             // 
             // password_txtbox
             // 
@@ -74,6 +75,7 @@
             this.password_txtbox.Text = "Password";
             this.toolTip1.SetToolTip(this.password_txtbox, "Password must contain a number, special character and at leas one capital");
             this.password_txtbox.Click += new System.EventHandler(this.password_txtbox_Click);
+            this.password_txtbox.Enter += new System.EventHandler(this.password_txtbox_Enter);
             // 
             // login_btn
             // 
