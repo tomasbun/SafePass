@@ -14,43 +14,33 @@ namespace SafePass
 {
     public partial class login : Form
     {
-        // testing
-        string directory_path = @"c:\safepass";
-        string file_path = @"c:\safepass\userdata.txt";
-        string key = "robertas";
+        static string filename = "userdata";
+        static string directory_path = @"c:\safepass";
+        string file_path = directory_path + @"\" + ComputeSha256Hash(filename) + ".txt";
+
         int number_of_files = 0;
         List<User> all_users = new List<User>();
 
         public login()
         {
             InitializeComponent();
-            
+           
+
+            username_txtbox.Focus();
             if (Directory.Exists(directory_path))
                 number_of_files = Directory.GetFiles(directory_path).Length;
             
             if ( (!Directory.Exists(directory_path)) || (number_of_files == 0) || (!File.Exists(file_path)) )
             {
-
                 Directory.CreateDirectory(directory_path);
-                var myfile = File.Create(file_path);
-                myfile.Close();
-                File.WriteAllText(file_path, "admin 1234");
-                Encryptfile(file_path, key);
-
+                File.WriteAllText(file_path, EncryptData("admin 1234", "admin") + "\n");
                 MessageBox.Show("No profiles detected please register first! ");
                 repeat_password_txtbox.TabStop = true;
                 panel1.Height = 125;
                 button1.Text = "Register";
                 button2.Text = "Login";
-                button2.Enabled = false;
-                
+                button2.Enabled = false;                
             }
-            else
-            {
-                read_users();   
-            }
-            username_txtbox.Focus();
-
         }
 
        //------------------------- events ---------------------------------------------------
@@ -133,10 +123,12 @@ namespace SafePass
                     MessageBox.Show("Passwords do not match");
                 }
                 else
-                {
-                    Decryptfile(file_path, key);
-                    File.WriteAllText(file_path, username_txtbox.Text.Trim() + " " + password_txtbox.Text.Trim());
-                    Encryptfile(file_path, key);
+                {                   
+                    using (StreamWriter file = new StreamWriter(file_path, true))
+                    {
+                      file.WriteLine(EncryptData(username_txtbox.Text.Trim() + " " + password_txtbox.Text.Trim(), username_txtbox.Text.Trim()) );
+                    }
+                                        
                     MessageBox.Show("Registration successful!");
                     this.Hide();
                     Control control_form = new Control(username_txtbox.Text);
@@ -146,6 +138,7 @@ namespace SafePass
             }
             else
             {
+                read_users();
                 foreach (User u in all_users)
                 {
                     if ((u.GetUsername() == username_txtbox.Text) && (u.GetPassword() == password_txtbox.Text))
@@ -189,20 +182,25 @@ namespace SafePass
                 repeat_password_txtbox.ForeColor = Color.DarkGray;
             }
         }
-
+        
         //------------------------- methods -------------------------------------------------
 
         private void read_users()
         {
-            Decryptfile(file_path, key);
+            
             String[] lines = File.ReadAllLines(file_path);
             foreach (string line in lines)
             {
-                string[] details = line.Split(' ');
-                User new_user = new User(details[0], details[1]);
-                all_users.Add(new_user);
+                string n = DecryptData_nopadding(line, username_txtbox.Text);
+                if ( n.Trim().Contains(' '))
+                {
+                    string[] details = DecryptData(line, username_txtbox.Text).Split();
+                    User new_user = new User(details[0], details[1]);
+                    all_users.Add(new_user);                       
+                }
+                    
             }
-            Encryptfile(file_path, key);
+           
         }
 
         static void Encryptfile(string filepath, string key)
@@ -256,10 +254,100 @@ namespace SafePass
             }
 
         }
-
-        private void button3_Click(object sender, EventArgs e)
+               
+        public string EncryptData(string textData, string Encryptionkey)
         {
-            Decryptfile(file_path, key);
+            RijndaelManaged objrij = new RijndaelManaged();
+            //set the mode for operation of the algorithm
+            objrij.Mode = CipherMode.CBC;
+            //set the padding mode used in the algorithm.
+            //objrij.Padding = PaddingMode.None;
+            objrij.Padding = PaddingMode.PKCS7;
+            //set the size, in bits, for the secret key.
+            objrij.KeySize = 0x80;
+            //set the block size in bits for the cryptographic operation.
+            objrij.BlockSize = 0x80;
+            //set the symmetric key that is used for encryption & decryption.
+            byte[] passBytes = Encoding.UTF8.GetBytes(Encryptionkey);
+            //set the initialization vector (IV) for the symmetric algorithm
+            byte[] EncryptionkeyBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            int len = passBytes.Length;
+            if (len > EncryptionkeyBytes.Length)
+            {
+                len = EncryptionkeyBytes.Length;
+            }
+
+            Array.Copy(passBytes, EncryptionkeyBytes, len);
+            objrij.Key = EncryptionkeyBytes;
+            objrij.IV = EncryptionkeyBytes;
+            //Creates symmetric AES object with the current key and initialization vector IV.
+            ICryptoTransform objtransform = objrij.CreateEncryptor();
+            byte[] textDataByte = Encoding.UTF8.GetBytes(textData);
+            //Final transform the test string.
+            return Convert.ToBase64String(objtransform.TransformFinalBlock(textDataByte, 0, textDataByte.Length));
+
+        }
+
+        public string DecryptData(string EncryptedText, string Encryptionkey)
+
+        {
+            RijndaelManaged objrij = new RijndaelManaged();
+            objrij.Mode = CipherMode.CBC;
+            objrij.Padding = PaddingMode.PKCS7;
+            objrij.BlockSize = 0x80;
+            byte[] encryptedTextByte = Convert.FromBase64String(EncryptedText);
+            byte[] passBytes = Encoding.UTF8.GetBytes(Encryptionkey);
+            byte[] EncryptionkeyBytes = new byte[0x10];
+            int len = passBytes.Length;
+            if (len > EncryptionkeyBytes.Length)
+            {
+                len = EncryptionkeyBytes.Length;
+            }
+            Array.Copy(passBytes, EncryptionkeyBytes, len);
+            objrij.Key = EncryptionkeyBytes;
+            objrij.IV = EncryptionkeyBytes;
+            byte[] TextByte = objrij.CreateDecryptor().TransformFinalBlock(encryptedTextByte, 0, encryptedTextByte.Length);
+            return Encoding.UTF8.GetString(TextByte);  
+        }
+
+        public string DecryptData_nopadding(string EncryptedText, string Encryptionkey)
+
+        {
+            RijndaelManaged objrij = new RijndaelManaged();
+            objrij.Mode = CipherMode.CBC;
+            objrij.Padding = PaddingMode.None;
+            objrij.BlockSize = 0x80;
+            byte[] encryptedTextByte = Convert.FromBase64String(EncryptedText);
+            byte[] passBytes = Encoding.UTF8.GetBytes(Encryptionkey);
+            byte[] EncryptionkeyBytes = new byte[0x10];
+            int len = passBytes.Length;
+            if (len > EncryptionkeyBytes.Length)
+            {
+                len = EncryptionkeyBytes.Length;
+            }
+            Array.Copy(passBytes, EncryptionkeyBytes, len);
+            objrij.Key = EncryptionkeyBytes;
+            objrij.IV = EncryptionkeyBytes;
+            byte[] TextByte = objrij.CreateDecryptor().TransformFinalBlock(encryptedTextByte, 0, encryptedTextByte.Length);
+            return Encoding.UTF8.GetString(TextByte);
+        }
+
+        static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

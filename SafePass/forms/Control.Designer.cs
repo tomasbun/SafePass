@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.safepass_lbl = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.search_txtbox = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.password = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Add_btn = new System.Windows.Forms.Button();
             this.Delete_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.current_user_lbl = new System.Windows.Forms.Label();
+            this.search_btn = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // safepass_lbl
@@ -53,64 +54,48 @@
             this.safepass_lbl.TabIndex = 8;
             this.safepass_lbl.Text = "SafePass";
             // 
-            // label1
+            // search_txtbox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(49, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(52, 111);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 20);
-            this.textBox1.TabIndex = 10;
+            this.search_txtbox.Location = new System.Drawing.Point(52, 111);
+            this.search_txtbox.Name = "search_txtbox";
+            this.search_txtbox.Size = new System.Drawing.Size(513, 20);
+            this.search_txtbox.TabIndex = 10;
+            this.search_txtbox.TextChanged += new System.EventHandler(this.search_txtbox_TextChanged);
             // 
             // listView1
             // 
             this.listView1.CheckBoxes = true;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.name,
+            this.username,
+            this.password});
+            this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
+            this.listView1.LabelEdit = true;
             this.listView1.Location = new System.Drawing.Point(52, 148);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(698, 230);
+            this.listView1.Size = new System.Drawing.Size(699, 230);
             this.listView1.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.listView1, "Right click to edit");
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
             // 
-            // label2
+            // name
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(284, 94);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "label2";
+            this.name.Text = "Name";
+            this.name.Width = 233;
             // 
-            // textBox2
+            // username
             // 
-            this.textBox2.Location = new System.Drawing.Point(287, 111);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(205, 20);
-            this.textBox2.TabIndex = 13;
+            this.username.Text = "Username";
+            this.username.Width = 233;
             // 
-            // textBox3
+            // password
             // 
-            this.textBox3.Location = new System.Drawing.Point(522, 111);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(228, 20);
-            this.textBox3.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(522, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "label3";
+            this.password.Text = "Password";
+            this.password.Width = 233;
             // 
             // Add_btn
             // 
@@ -123,6 +108,7 @@
             this.Add_btn.TabIndex = 16;
             this.Add_btn.Text = "Add";
             this.Add_btn.UseVisualStyleBackColor = false;
+            this.Add_btn.Click += new System.EventHandler(this.Add_btn_Click);
             // 
             // Delete_btn
             // 
@@ -159,6 +145,18 @@
             this.current_user_lbl.TabIndex = 19;
             this.current_user_lbl.Text = "Logged in as ";
             // 
+            // search_btn
+            // 
+            this.search_btn.BackColor = System.Drawing.Color.Teal;
+            this.search_btn.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.search_btn.ForeColor = System.Drawing.Color.White;
+            this.search_btn.Location = new System.Drawing.Point(571, 107);
+            this.search_btn.Name = "search_btn";
+            this.search_btn.Size = new System.Drawing.Size(179, 27);
+            this.search_btn.TabIndex = 20;
+            this.search_btn.Text = "Search";
+            this.search_btn.UseVisualStyleBackColor = false;
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,19 +164,16 @@
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.CancelButton = this.exit_btn;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.search_btn);
             this.Controls.Add(this.current_user_lbl);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.Delete_btn);
             this.Controls.Add(this.Add_btn);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.search_txtbox);
             this.Controls.Add(this.safepass_lbl);
             this.Name = "Control";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Control";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,16 +183,16 @@
         #endregion
 
         private System.Windows.Forms.Label safepass_lbl;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox search_txtbox;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button Add_btn;
         private System.Windows.Forms.Button Delete_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Label current_user_lbl;
+        private System.Windows.Forms.ColumnHeader name;
+        private System.Windows.Forms.ColumnHeader username;
+        private System.Windows.Forms.ColumnHeader password;
+        private System.Windows.Forms.Button search_btn;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

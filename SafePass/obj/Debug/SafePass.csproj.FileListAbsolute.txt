@@ -21,3 +21,4 @@ C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.csproj.Generate
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.csproj.CoreCompileInputs.cache
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.exe
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.pdb
+C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.Add_form.resources
