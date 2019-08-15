@@ -41,6 +41,7 @@
             this.current_user_lbl = new System.Windows.Forms.Label();
             this.search_btn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.open_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // safepass_lbl
@@ -121,6 +122,7 @@
             this.Delete_btn.TabIndex = 17;
             this.Delete_btn.Text = "Delete";
             this.Delete_btn.UseVisualStyleBackColor = false;
+            this.Delete_btn.Click += new System.EventHandler(this.Delete_btn_Click);
             // 
             // exit_btn
             // 
@@ -157,6 +159,19 @@
             this.search_btn.Text = "Search";
             this.search_btn.UseVisualStyleBackColor = false;
             // 
+            // open_btn
+            // 
+            this.open_btn.BackColor = System.Drawing.Color.Teal;
+            this.open_btn.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.open_btn.ForeColor = System.Drawing.Color.White;
+            this.open_btn.Location = new System.Drawing.Point(262, 384);
+            this.open_btn.Name = "open_btn";
+            this.open_btn.Size = new System.Drawing.Size(99, 39);
+            this.open_btn.TabIndex = 21;
+            this.open_btn.Text = "Open file";
+            this.open_btn.UseVisualStyleBackColor = false;
+            this.open_btn.Click += new System.EventHandler(this.open_btn_Click);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,6 +179,7 @@
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.CancelButton = this.exit_btn;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.open_btn);
             this.Controls.Add(this.search_btn);
             this.Controls.Add(this.current_user_lbl);
             this.Controls.Add(this.exit_btn);
@@ -194,5 +210,6 @@
         private System.Windows.Forms.ColumnHeader password;
         private System.Windows.Forms.Button search_btn;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button open_btn;
     }
 }

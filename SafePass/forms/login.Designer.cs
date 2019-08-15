@@ -43,10 +43,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -67,11 +69,11 @@
             // safepass_lbl
             // 
             this.safepass_lbl.AutoSize = true;
-            this.safepass_lbl.Font = new System.Drawing.Font("Bahnschrift Condensed", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.safepass_lbl.ForeColor = System.Drawing.Color.Teal;
-            this.safepass_lbl.Location = new System.Drawing.Point(84, 12);
+            this.safepass_lbl.Font = new System.Drawing.Font("Bahnschrift Condensed", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.safepass_lbl.ForeColor = System.Drawing.Color.White;
+            this.safepass_lbl.Location = new System.Drawing.Point(4, 6);
             this.safepass_lbl.Name = "safepass_lbl";
-            this.safepass_lbl.Size = new System.Drawing.Size(170, 58);
+            this.safepass_lbl.Size = new System.Drawing.Size(129, 45);
             this.safepass_lbl.TabIndex = 7;
             this.safepass_lbl.Text = "SafePass";
             // 
@@ -102,7 +104,7 @@
             this.username_txtbox.Size = new System.Drawing.Size(213, 30);
             this.username_txtbox.TabIndex = 0;
             this.username_txtbox.Text = "Username";
-            this.toolTip1.SetToolTip(this.username_txtbox, "Must be at least 5 characters long");
+            this.toolTip1.SetToolTip(this.username_txtbox, "Must be at least 8 characters long");
             this.username_txtbox.Enter += new System.EventHandler(this.username_txtbox_Enter);
             // 
             // panel1
@@ -169,6 +171,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(40, 37);
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, "Password");
             // 
             // pictureBox1
             // 
@@ -181,6 +184,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(40, 41);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "Username");
             // 
             // panel2
             // 
@@ -206,6 +210,15 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Teal;
+            this.panel4.Controls.Add(this.safepass_lbl);
+            this.panel4.Location = new System.Drawing.Point(1, -1);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(334, 60);
+            this.panel4.TabIndex = 13;
+            // 
             // login
             // 
             this.AcceptButton = this.button1;
@@ -213,9 +226,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(334, 311);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.safepass_lbl);
             this.Controls.Add(this.button1);
             this.Font = new System.Drawing.Font("Palatino Linotype", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -229,8 +242,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -248,6 +262,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox username_txtbox;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel4;
     }
 }
 

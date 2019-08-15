@@ -9,34 +9,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 namespace SafePass
 {
     public partial class Control : Form
     {
-        string file_path;
         List<Record> all_records = new List<Record>();
 
-        public Control(string username)
+        public Control()
         {
-            file_path = @"c:\safepass\" + username + ".txt";
-            //string file_path = @"c:\safepass\" + ComputeSha256Hash(username) + ".txt";
-
             InitializeComponent();
-            
-            if (!File.Exists(file_path))
+                       
+            if (!File.Exists(Program.file_location()))
             {
-                File.Create(file_path).Close();   
+                File.Create(Program.file_location()).Close();
+                Program.Encryptfile(Program.file_location(), Program.filename);
             }
-            current_user_lbl.Text += username;
-
+            current_user_lbl.Text += Program.filename;
             Update_listview();
-
-
-
         }
 
-        //---------------------- events ------------------------
+        //---------------------- events --------------------------------------
 
         private void exit_btn_Click(object sender, EventArgs e)
         {
@@ -45,51 +39,9 @@ namespace SafePass
 
         private void Add_btn_Click(object sender, EventArgs e)
         {
-            Add_form add_form = new Add_form(file_path, "Name", "Username", "Password");
+            Add_form add_form = new Add_form(true);
             add_form.ShowDialog();
             Update_listview();
-        }
-
-        //-------------------- methods -------------------------
-
-        static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
-        public void Update_listview()
-        {
-            all_records.Clear();
-            List<string> lines = File.ReadAllLines(file_path).ToList();
-            foreach (string line in lines)
-            {
-                string[] data = line.Split(' ');
-                Record new_record = new Record(data[0].Trim(), data[1].Trim(), data[2].Trim());
-                all_records.Add(new_record);
-            }
-
-            listView1.Items.Clear();
-            foreach (Record r in all_records)
-            {
-                ListViewItem list_view_row = new ListViewItem(r.GetName());
-                list_view_row.SubItems.Add(r.GetUsername());
-                list_view_row.SubItems.Add(r.GetPassword());
-                listView1.Items.Add(list_view_row);
-            }
-
         }
 
         private void search_txtbox_TextChanged(object sender, EventArgs e)
@@ -104,7 +56,7 @@ namespace SafePass
                     list_view_row.SubItems.Add(r.GetUsername());
                     list_view_row.SubItems.Add(r.GetPassword());
                     listView1.Items.Add(list_view_row);
-                } 
+                }
             }
         }
 
@@ -115,13 +67,89 @@ namespace SafePass
                 if (listView1.SelectedItems.Count > 0)
                 {
                     ListViewItem item = listView1.SelectedItems[0];
-                    //MessageBox.Show(item.SubItems[0].Text + " " + item.SubItems[1].Text + " " + item.SubItems[2].Text);
-                    Add_form add_form = new Add_form(file_path, item.SubItems[0].Text, item.SubItems[1].Text, item.SubItems[2].Text);
+                    Program.name = item.SubItems[0].Text;
+                    Program.username = item.SubItems[1].Text;
+                    Program.password = item.SubItems[2].Text;
+                    Add_form add_form = new Add_form(false);
                     add_form.ShowDialog();
                 }
                 Update_listview();
-
             }
         }
+
+        private void open_btn_Click(object sender, EventArgs e)
+        {
+            Program.Decryptfile(Program.file_location(), Program.filename);   // here
+            //Process.Start("notepad.exe", file_path);
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = Program.file_location()
+            };
+
+            process.Start();
+            process.WaitForExit();
+
+            Program.Encryptfile(Program.file_location(), Program.filename);   // here
+        }
+
+        private void Delete_btn_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+
+                ListView.CheckedIndexCollection checkedItems = listView1.CheckedIndices;
+                while (checkedItems.Count != 0)
+                {
+                    var myitem = listView1.Items[checkedItems[0]];
+                    all_records.RemoveAll(x => (x.GetName() == myitem.SubItems[0].Text) && (x.GetUsername() == myitem.SubItems[1].Text) && (x.GetPassword() == myitem.SubItems[2].Text));
+                    listView1.Items.RemoveAt(checkedItems[0]);
+                }
+
+                Program.Decryptfile(Program.file_location(), Program.filename);       /// here
+
+                using (StreamWriter newTask = new StreamWriter(Program.file_location(), false))
+                {
+                    foreach (Record r in all_records)
+                         newTask.WriteLine(r.Display_details());
+                    
+                }
+
+                Program.Encryptfile(Program.file_location(), Program.filename);     // here
+
+                Update_listview();
+            }
+        }
+
+        //-------------------- methods ----------------------------------------
+
+        public void Update_listview()
+        {
+            all_records.Clear();
+            listView1.Items.Clear();
+
+            Program.Decryptfile(Program.file_location(), Program.filename);          // here
+
+            List<string> lines = File.ReadAllLines(Program.file_location()).ToList();
+            foreach (string line in lines)
+            {
+                string[] data = line.Split(' ');
+                Record new_record = new Record(data[0].Trim(), data[1].Trim(), data[2].Trim());
+                all_records.Add(new_record);
+
+                ListViewItem list_view_row = new ListViewItem(new_record.GetName());
+                list_view_row.SubItems.Add(new_record.GetUsername());
+                list_view_row.SubItems.Add(new_record.GetPassword());
+                listView1.Items.Add(list_view_row);
+            }
+
+            Program.Encryptfile(Program.file_location(), Program.filename);            // here
+
+        }
+
+        
     }
 }
