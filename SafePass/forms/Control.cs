@@ -13,8 +13,7 @@ using System.Diagnostics;
 
 namespace SafePass
 {
-    public partial class Control : Form
-    {
+    public partial class Control : MaterialSkin.Controls.MaterialForm  {
         List<Record> all_records = new List<Record>();
 
         public Control()
@@ -124,6 +123,8 @@ namespace SafePass
             }
         }
 
+       
+
         //-------------------- methods ----------------------------------------
 
         public void Update_listview()
@@ -150,6 +151,9 @@ namespace SafePass
 
         }
 
-        
+        private void Control_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

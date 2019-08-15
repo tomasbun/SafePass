@@ -33,8 +33,9 @@ namespace SafePass
         }
 
 
-        static public void Encryptfile(string filepath, string key)
+        static public void Encryptfile(string filepath, string name)
         {
+            string key = name.Substring(0, 8);
             byte[] plainContent = File.ReadAllBytes(filepath);
             using (var DES = new DESCryptoServiceProvider())
             {
@@ -59,8 +60,9 @@ namespace SafePass
 
         }
 
-        static public void Decryptfile(string filepath, string key)
+        static public void Decryptfile(string filepath, string name)
         {
+            string key = name.Substring(0, 8);
             byte[] encrypted = File.ReadAllBytes(filepath);
             using (var DES = new DESCryptoServiceProvider())
             {

@@ -24,3 +24,4 @@ C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.pdb
 C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.Add_form.resources
 C:\Users\pyshk\source\repos\SafePass\SafePass\bin\Debug\MaterialSkin.dll
 C:\Users\pyshk\source\repos\SafePass\SafePass\obj\Debug\SafePass.csproj.CopyComplete
+C:\Users\pyshk\Source\Repos\SafePass\SafePass\obj\Debug\SafePass.newform.resources

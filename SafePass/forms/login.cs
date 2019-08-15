@@ -13,13 +13,16 @@ using System.Security.Cryptography;
 
 namespace SafePass
 {
-    public partial class login : Form
+    public partial class login : MaterialSkin.Controls.MaterialForm
     {
           
         public login()
         {
             InitializeComponent();
-            
+
+            //newform new_form = new newform();
+            //new_form.ShowDialog();
+                                                  
             if (!File.Exists(Program.file_location()))
             {
                 Directory.CreateDirectory(Program.directory_path);
@@ -186,6 +189,20 @@ namespace SafePass
                 repeat_password_txtbox.ForeColor = Color.DarkGray;
             }
         }
-               
+
+        private void login_Load(object sender, EventArgs e)
+        {
+            MaterialSkin.MaterialSkinManager skinManager = MaterialSkin.MaterialSkinManager.Instance;
+            skinManager.AddFormToManage(this);
+            skinManager.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
+            skinManager.ColorScheme = new MaterialSkin.ColorScheme(
+                MaterialSkin.Primary.Teal900,         // under top and buttons     
+                MaterialSkin.Primary.Teal900,         //top
+                MaterialSkin.Primary.Red500,          // unknown
+                MaterialSkin.Accent.Amber700,         // underline textbox, chekbox
+                MaterialSkin.TextShade.WHITE);
+        }
+
+        
     }
 }

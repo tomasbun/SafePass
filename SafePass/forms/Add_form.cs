@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 
 namespace SafePass
 {
-    public partial class Add_form : Form
+    public partial class Add_form : MaterialSkin.Controls.MaterialForm
     {
         
         
@@ -22,6 +22,7 @@ namespace SafePass
             InitializeComponent();
             if (!add)
             {
+                this.Text = "Update";
                 confirm_btn.Text = "Update";
                 name_txtbox.Text = Program.name;
                 username_txtbox.Text = Program.username;
@@ -72,6 +73,11 @@ namespace SafePass
         private void cancel_btn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Add_form_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
