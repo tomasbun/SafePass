@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B2157DAB-BFFB-4EA7-B643-06E6A757EC10}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PassGuard</RootNamespace>
-    <AssemblyName>PassGuard</AssemblyName>
+    <RootNamespace>Safepass</RootNamespace>
+    <AssemblyName>Safepass</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PassGuard.Properties {
+namespace Safepass.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -196,13 +196,11 @@ namespace SafePass
             skinManager.AddFormToManage(this);
             skinManager.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
             skinManager.ColorScheme = new MaterialSkin.ColorScheme(
-                MaterialSkin.Primary.Teal900,         // under top and buttons     
-                MaterialSkin.Primary.Teal900,         //top
+                MaterialSkin.Primary.BlueGrey900,         // under top and buttons     
+                MaterialSkin.Primary.BlueGrey900,         //top
                 MaterialSkin.Primary.Red500,          // unknown
                 MaterialSkin.Accent.Amber700,         // underline textbox, chekbox
                 MaterialSkin.TextShade.WHITE);
-        }
-
-        
+        }        
     }
 }

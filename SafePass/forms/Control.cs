@@ -91,6 +91,7 @@ namespace SafePass
             process.WaitForExit();
 
             Program.Encryptfile(Program.file_location(), Program.filename);   // here
+            Update_listview();
         }
 
         private void Delete_btn_Click(object sender, EventArgs e)
@@ -121,9 +122,7 @@ namespace SafePass
 
                 Update_listview();
             }
-        }
-
-       
+        }     
 
         //-------------------- methods ----------------------------------------
 
@@ -135,6 +134,7 @@ namespace SafePass
             Program.Decryptfile(Program.file_location(), Program.filename);          // here
 
             List<string> lines = File.ReadAllLines(Program.file_location()).ToList();
+            records_lbl.Text = "Number of records: " + lines.Count();
             foreach (string line in lines)
             {
                 string[] data = line.Split(' ');
@@ -155,5 +155,12 @@ namespace SafePass
         {
 
         }
+
+        private void search_txtbox_Click(object sender, EventArgs e)
+        {
+            search_txtbox.Text = "";
+        }
+
+       
     }
 }
